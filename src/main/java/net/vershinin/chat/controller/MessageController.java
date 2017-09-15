@@ -33,7 +33,6 @@ public class MessageController {
     @MessageMapping("/send")
     @SendTo("/topic/receive")
     public Message sendMessage(Principal principal, Message message){
-        message.setUser(userService.findByUsername(principal.getName()));
         messageService.save(message);
         return message;
     }
