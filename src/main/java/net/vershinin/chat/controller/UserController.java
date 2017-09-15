@@ -10,7 +10,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Set;
 
-@RestController("/users")
+@RestController()
 public class UserController {
 
     private final UserService userService;
@@ -20,12 +20,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(method = RequestMethod.POST, name = "/")
+    @RequestMapping(method = RequestMethod.POST, name = "/users/")
     public void signIn(User user){
         userService.save(user);
     }
 
-    @RequestMapping("/")
+    @RequestMapping("/users/")
     public Set<User> getOnlineUsers(){
         throw new NotImplementedException();
     }
