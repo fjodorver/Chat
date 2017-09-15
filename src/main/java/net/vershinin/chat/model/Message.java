@@ -2,10 +2,7 @@ package net.vershinin.chat.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
@@ -13,6 +10,7 @@ import java.io.Serializable;
 public class Message implements Serializable {
 
     @Id
+    @GeneratedValue
     private Long id;
 
     private String content;
