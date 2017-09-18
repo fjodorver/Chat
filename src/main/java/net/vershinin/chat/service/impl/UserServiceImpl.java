@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.security.Principal;
 
 @Service
 @Transactional
@@ -22,18 +23,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(User user) {
-        userRepository.save(user);
+    public User findByPrincipal(Principal principal) throws UsernameNotFoundException {
+        return userRepository
+                .findByUsername(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException(""));
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseGet(() -> {
-            User user = new User();
-            user.setUsername("user");
-            user.setPassword("pass");
-            userRepository.save(user);
-            return user;
-        });
+        return userRepository
+                .findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(""));
+    }
+
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
     }
 }
