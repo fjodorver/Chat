@@ -8,6 +8,7 @@ import net.vershinin.chat.service.AuthService;
 import net.vershinin.chat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -17,10 +18,13 @@ public class AuthServiceImpl implements AuthService {
 
     private final Set<User> users = Sets.newHashSet();
 
+    private final ConsumerTokenServices consumerTokenServices;
+
     private final UserService userService;
 
     @Autowired
-    public AuthServiceImpl(UserService userService) {
+    public AuthServiceImpl(ConsumerTokenServices consumerTokenServices, UserService userService) {
+        this.consumerTokenServices = consumerTokenServices;
         this.userService = userService;
     }
 
@@ -40,5 +44,10 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public Set<User> getOnlineUsers() {
         return users;
+    }
+
+    @Override
+    public boolean logout(String token) {
+        return consumerTokenServices.revokeToken(token);
     }
 }

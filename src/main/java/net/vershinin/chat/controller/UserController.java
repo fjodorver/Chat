@@ -12,6 +12,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,6 +40,12 @@ public class UserController {
     @GetMapping("/api/v1/users/")
     public Set<User> getOnlineUsers(){
         return authService.getOnlineUsers();
+    }
+
+    @GetMapping(value = "/signout")
+    public boolean signOut(Authentication authentication){
+        val details = (OAuth2AuthenticationDetails) authentication.getDetails();
+        return authService.logout(details.getTokenValue());
     }
 
     @PostMapping(value = "/signup")
