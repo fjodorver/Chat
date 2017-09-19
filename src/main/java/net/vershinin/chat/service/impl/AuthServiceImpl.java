@@ -15,7 +15,7 @@ import java.util.Set;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private Set<User> users = Sets.newHashSet();
+    private final Set<User> users = Sets.newHashSet();
 
     private final UserService userService;
 

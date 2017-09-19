@@ -17,6 +17,6 @@ public class Connection implements Serializable {
     }
 
     public enum Status {
-        CONNECTED, DISCONNECTED;
+        CONNECTED, DISCONNECTED
     }
 }

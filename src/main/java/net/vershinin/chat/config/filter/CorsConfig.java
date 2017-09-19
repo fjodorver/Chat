@@ -1,7 +1,6 @@
 package net.vershinin.chat.config.filter;
 
 import com.google.common.collect.Lists;
-import lombok.val;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
